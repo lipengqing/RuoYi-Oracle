@@ -29,7 +29,7 @@
         <commons.io.version>2.11.0</commons.io.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
-        <oracle.version>10.2.0.4.0</oracle.version>
+        <oracle.version>11.2.0.3</oracle.version>
     </properties>
 
     <!-- 依赖声明 -->
