@@ -69,6 +69,12 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
+        <!-- 附件管理-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-attachment</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

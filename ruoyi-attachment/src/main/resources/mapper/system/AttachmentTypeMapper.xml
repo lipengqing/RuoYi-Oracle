@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.attachmentType.mapper.AttachmentTypeMapper">
+    
+    <resultMap type="AttachmentType" id="AttachmentTypeResult">
+        <result property="id"    column="id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="typeCode"    column="type_code"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="treeSorts"    column="tree_sorts"    />
+        <result property="treeLeaf"    column="tree_leaf"    />
+        <result property="treeLevel"    column="tree_level"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="treeNames"    column="tree_names"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="parentName" column="parent_name" />
+    </resultMap>
+
+    <sql id="selectAttachmentTypeVo">
+        select id, parent_id, type_code, type_name, order_num, tree_sorts, tree_leaf, tree_level, ancestors, tree_names, status, create_by, create_time, update_by, update_time, remark from sys_attachment_type
+    </sql>
+
+    <select id="selectAttachmentTypeList" parameterType="AttachmentType" resultMap="AttachmentTypeResult">
+        <include refid="selectAttachmentTypeVo"/>
+        <where>  
+            <if test="typeCode != null  and typeCode != ''"> and type_code = #{typeCode}</if>
+            <if test="typeName != null  and typeName != ''"> and type_name like concat(concat('%', #{typeName}), '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+        order by order_num
+    </select>
+    
+    <select id="selectAttachmentTypeById" parameterType="String" resultMap="AttachmentTypeResult">
+        select t.id, t.parent_id, t.type_code, t.type_name, t.order_num, t.tree_sorts, t.tree_leaf, t.tree_level, t.ancestors, t.tree_names, t.status, t.create_by, t.create_time, t.update_by, t.update_time, t.remark, p.type_name as parent_name
+        from sys_attachment_type t
+        left join sys_attachment_type p on p.id = t.parent_id
+        where t.id = #{id}
+    </select>
+        
+    <insert id="insertAttachmentType" parameterType="AttachmentType"  keyProperty="id">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT sys_guid() as id FROM DUAL
+        </selectKey>
+        insert into sys_attachment_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="typeCode != null and typeCode != ''">type_code,</if>
+            <if test="typeName != null and typeName != ''">type_name,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="treeSorts != null">tree_sorts,</if>
+            <if test="treeLeaf != null">tree_leaf,</if>
+            <if test="treeLevel != null">tree_level,</if>
+            <if test="ancestors != null">ancestors,</if>
+            <if test="treeNames != null">tree_names,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="typeCode != null and typeCode != ''">#{typeCode},</if>
+            <if test="typeName != null and typeName != ''">#{typeName},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="treeSorts != null">#{treeSorts},</if>
+            <if test="treeLeaf != null">#{treeLeaf},</if>
+            <if test="treeLevel != null">#{treeLevel},</if>
+            <if test="ancestors != null">#{ancestors},</if>
+            <if test="treeNames != null">#{treeNames},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAttachmentType" parameterType="AttachmentType">
+        update sys_attachment_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="typeCode != null and typeCode != ''">type_code = #{typeCode},</if>
+            <if test="typeName != null and typeName != ''">type_name = #{typeName},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="treeSorts != null">tree_sorts = #{treeSorts},</if>
+            <if test="treeLeaf != null">tree_leaf = #{treeLeaf},</if>
+            <if test="treeLevel != null">tree_level = #{treeLevel},</if>
+            <if test="ancestors != null">ancestors = #{ancestors},</if>
+            <if test="treeNames != null">tree_names = #{treeNames},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentTypeById" parameterType="String">
+        delete from sys_attachment_type where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentTypeByIds" parameterType="String">
+        delete from sys_attachment_type where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="checkTypeCodeUnique" parameterType="String" resultType="int">
+        select count(1) from sys_attachment_type where type_code=#{typeCode}
+        <if test="_databaseId=='mysql'.toString()">
+            limit 1
+        </if>
+        <if test='_databaseId=="oracle".toString()'>
+            and rownum <![CDATA[ <= ]]> 1
+        </if>
+    </select>
+</mapper>
