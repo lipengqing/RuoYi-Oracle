@@ -1749,7 +1749,7 @@ var table = {
 
                 // 具体参数自行查询
                 control.fileinput({
-                    //theme: "explorer", //主题
+                    theme: "explorer", //主题
                     language: 'zh', //设置语言
                     uploadUrl: ctx+'system/attachment/upload',  //上传的地址
                     enctype: 'multipart/form-data',
@@ -1856,7 +1856,7 @@ var table = {
                 }
                 // 具体参数自行查询
                 control.fileinput({
-                    //theme: "explorer",
+                    theme: "explorer",
                     language: 'zh', //设置语言
                     uploadUrl: ctx+'system/attachment/upload',  //上传的地址
                     enctype: 'multipart/form-data',
@@ -1877,7 +1877,7 @@ var table = {
                     initialPreview: previewJson,
                     initialPreviewConfig: preConfigList,
                     otherActionButtons:'<button type="button" class="kv-file-down btn btn-sm btn-default" data-key = {key} onclick="$.file.download(this)" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
-
+                    overwriteInitial: false,
                     previewFileIconSettings: {
                         'doc': '<i class="fa fa-file-word-o text-primary"></i>',
                         'xls': '<i class="fa fa-file-excel-o text-success"></i>',

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改合同管理')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: bootstrap-fileinput-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-htgl-edit" th:object="${ctjContractInfo}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">合同编号：</label>
+                        <div class="col-sm-8">
+                            <input name="htbh" th:field="*{htbh}" class="form-control" type="text" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">合同名称：</label>
+                        <div class="col-sm-8">
+                            <input name="htmc" th:field="*{htmc}" class="form-control" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">合同类型：</label>
+                        <div class="col-sm-8">
+                            <select name="htlx" class="form-control m-b" th:with="type=${@dict.getType('ctj_contract_htlx')}">
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{htlx}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">合同金额：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input name="htje" th:field="*{htje}" class="form-control" type="number">
+                                <span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">起始日期：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input name="qsrq" th:value="${#dates.format(ctjContractInfo.qsrq, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">终止日期：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input name="zzrq" th:value="${#dates.format(ctjContractInfo.zzrq, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">签订日期：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input name="qdrq" th:value="${#dates.format(ctjContractInfo.qdrq, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">签订地点：</label>
+                        <div class="col-sm-8">
+                            <input name="qddd" th:field="*{qddd}" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">签订主体：</label>
+                        <div class="col-sm-8">
+                            <input name="qdzt" th:field="*{qdzt}" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">关联项目：</label>
+                        <div class="col-sm-8">
+                            <input name="glxm" th:field="*{glxm}" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">合同状态：</label>
+                        <div class="col-sm-8">
+                            <select name="htzt" class="form-control m-b" th:with="type=${@dict.getType('ctj_contract_htzt')}">
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{htzt}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">执行进度：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input name="zxjd" th:field="*{zxjd}" class="form-control" type="number">
+                                <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+            <div class="form-group">    
+                <label class="col-sm-2 control-label">合同描述：</label>
+                <div class="col-sm-10">
+                    <input name="htms" th:field="*{htms}" class="form-control" type="text">
+                </div>
+            </div>
+            </div>
+            <div class="col-xs-12">
+            <div class="form-group">    
+                <label class="col-sm-2 control-label">合同附件：</label>
+                <div class="col-sm-10">
+                    <!--<input name="htfj" th:field="*{htfj}" class="form-control" type="text">-->
+                    <input id="file-Portrait" type="file" multiple="multiple" name="file">
+                </div>
+            </div>
+            </div>
+            <div class="col-xs-12">
+            <div class="form-group">    
+                <label class="col-sm-2 control-label">备注：</label>
+                <div class="col-sm-10">
+                    <input name="remark" th:field="*{remark}" class="form-control" type="text">
+                </div>
+            </div>
+            </div>
+
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <th:block th:include="include :: bootstrap-fileinput-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "ctj/htgl";
+        $("#form-htgl-edit").validate({
+            focusCleanup: true
+        });
+
+        /*function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-htgl-edit').serialize());
+            }
+        }*/
+
+        $(function() {
+            var businessId = [[${ctjContractInfo.id}]];
+            $.file.initEditFiles("file-Portrait","file","ctj_htgl",businessId);//附件回显设置
+        });
+
+        function submitHandler () {
+            if ($.validate.form()) {
+                $.ajax({
+                    cache : true,
+                    type : "post",
+                    url : prefix + "/edit",
+                    data : $('#form-htgl-edit').serialize(),
+                    async : false,
+                    error : function(request) {
+                        $.modal.alertError("系统错误");
+                    },
+                    success: function(result) {
+                        var control = $('#file-Portrait');
+                        var file = control.val();
+                        if(file != '' ){
+                            var businessId = [[${ctjContractInfo.id}]];
+                            $.file.uploadFile("file-Portrait","ctj_htgl",businessId);
+                            control.on("filebatchuploadcomplete", function (event, data, extra) {
+                                if (typeof callback == "function") {
+                                    callback(result);
+                                }
+                                $.operate.successCallback(result);
+                            })
+                        }else{
+                            if (typeof callback == "function") {
+                                callback(result);
+                            }
+                            $.operate.successCallback(result);
+                        }
+                    }
+                });
+            }
+        }
+
+        $("input[name='qsrq']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='zzrq']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='qdrq']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

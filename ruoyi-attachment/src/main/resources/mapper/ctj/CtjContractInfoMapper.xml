@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.ctj.htgl.mapper.CtjContractInfoMapper">
+    
+    <resultMap type="CtjContractInfo" id="CtjContractInfoResult">
+        <result property="id"    column="id"    />
+        <result property="htbh"    column="htbh"    />
+        <result property="htmc"    column="htmc"    />
+        <result property="htlx"    column="htlx"    />
+        <result property="htje"    column="htje"    />
+        <result property="qsrq"    column="qsrq"    />
+        <result property="zzrq"    column="zzrq"    />
+        <result property="qdrq"    column="qdrq"    />
+        <result property="qddd"    column="qddd"    />
+        <result property="qdzt"    column="qdzt"    />
+        <result property="glxm"    column="glxm"    />
+        <result property="htzt"    column="htzt"    />
+        <result property="zxjd"    column="zxjd"    />
+        <result property="htms"    column="htms"    />
+        <result property="htfj"    column="htfj"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCtjContractInfoVo">
+        select
+            id,
+            htbh,
+            htmc,
+            htlx,
+            htje,
+            qsrq,
+            zzrq,
+            qdrq,
+            qddd,
+            qdzt,
+            glxm,
+            htzt,
+            zxjd,
+            htms,
+            (select count(1) from sys_attachment where business_id = id) as htfj,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            remark
+        from ctj_contract_info
+    </sql>
+
+    <select id="selectCtjContractInfoList" parameterType="CtjContractInfo" resultMap="CtjContractInfoResult">
+        <include refid="selectCtjContractInfoVo"/>
+        <where>  
+            <if test="htbh != null  and htbh != ''"> and htbh like concat(concat('%', #{htbh}), '%')</if>
+            <if test="htmc != null  and htmc != ''"> and htmc like concat(concat('%', #{htmc}), '%')</if>
+            <if test="htlx != null  and htlx != ''"> and htlx = #{htlx}</if>
+            <if test="qsrq != null "> and qsrq &gt;= #{qsrq}</if>
+            <if test="zzrq != null "> and zzrq &lt;= #{zzrq}</if>
+            <if test="params.beginQdrq != null and params.beginQdrq != '' and params.endQdrq != null and params.endQdrq != ''"> and qdrq between #{params.beginQdrq} and #{params.endQdrq}</if>
+            <if test="htzt != null  and htzt != ''"> and htzt = #{htzt}</if>
+        </where>
+    </select>
+    
+    <select id="selectCtjContractInfoById" parameterType="String" resultMap="CtjContractInfoResult">
+        <include refid="selectCtjContractInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCtjContractInfo" parameterType="CtjContractInfo"  keyProperty="id">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT sys_guid() as id FROM DUAL
+        </selectKey>
+        insert into ctj_contract_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="htbh != null and htbh != ''">htbh,</if>
+            <if test="htmc != null and htmc != ''">htmc,</if>
+            <if test="htlx != null">htlx,</if>
+            <if test="htje != null">htje,</if>
+            <if test="qsrq != null">qsrq,</if>
+            <if test="zzrq != null">zzrq,</if>
+            <if test="qdrq != null">qdrq,</if>
+            <if test="qddd != null">qddd,</if>
+            <if test="qdzt != null">qdzt,</if>
+            <if test="glxm != null">glxm,</if>
+            <if test="htzt != null">htzt,</if>
+            <if test="zxjd != null">zxjd,</if>
+            <if test="htms != null">htms,</if>
+            <if test="htfj != null">htfj,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="htbh != null and htbh != ''">#{htbh},</if>
+            <if test="htmc != null and htmc != ''">#{htmc},</if>
+            <if test="htlx != null">#{htlx},</if>
+            <if test="htje != null">#{htje},</if>
+            <if test="qsrq != null">#{qsrq},</if>
+            <if test="zzrq != null">#{zzrq},</if>
+            <if test="qdrq != null">#{qdrq},</if>
+            <if test="qddd != null">#{qddd},</if>
+            <if test="qdzt != null">#{qdzt},</if>
+            <if test="glxm != null">#{glxm},</if>
+            <if test="htzt != null">#{htzt},</if>
+            <if test="zxjd != null">#{zxjd},</if>
+            <if test="htms != null">#{htms},</if>
+            <if test="htfj != null">#{htfj},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCtjContractInfo" parameterType="CtjContractInfo">
+        update ctj_contract_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="htbh != null and htbh != ''">htbh = #{htbh},</if>
+            <if test="htmc != null and htmc != ''">htmc = #{htmc},</if>
+            <if test="htlx != null">htlx = #{htlx},</if>
+            <if test="htje != null">htje = #{htje},</if>
+            <if test="qsrq != null">qsrq = #{qsrq},</if>
+            <if test="zzrq != null">zzrq = #{zzrq},</if>
+            <if test="qdrq != null">qdrq = #{qdrq},</if>
+            <if test="qddd != null">qddd = #{qddd},</if>
+            <if test="qdzt != null">qdzt = #{qdzt},</if>
+            <if test="glxm != null">glxm = #{glxm},</if>
+            <if test="htzt != null">htzt = #{htzt},</if>
+            <if test="zxjd != null">zxjd = #{zxjd},</if>
+            <if test="htms != null">htms = #{htms},</if>
+            <if test="htfj != null">htfj = #{htfj},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCtjContractInfoById" parameterType="String">
+        delete from ctj_contract_info where id = #{id}
+    </delete>
+
+    <delete id="deleteCtjContractInfoByIds" parameterType="String">
+        delete from ctj_contract_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
